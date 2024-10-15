@@ -1,12 +1,14 @@
 <script setup lang="ts">
 
+
 </script>
 
 <template>
 	<header class="py-4 w-full border-b">
 		<nav class="flex container  items-center">
 			<NuxtLink to="/" class="flex gap-1 items-center">
-				<img class="w-8 md:w-14 lg:w-14" src="/icon-green.png" alt="" />
+				<!-- <img class="w-8 md:w-14 lg:w-14" src="/icon-green.png" alt="" /> -->
+				<NuxtImg sizes="xs:36px sm:60px md:80px lg:80px" densities="1x,2x" format="webp"  src="/icon-green.png" alt="" />
 				<span class=" sm:text-2xl md:text-3xl lg:text-3xl font-bold">Nuxtcipes</span>
 			</NuxtLink>
 			<ul
