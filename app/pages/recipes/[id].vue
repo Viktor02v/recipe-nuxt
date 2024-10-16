@@ -3,10 +3,30 @@ import { type Recipe } from '../../../types/types';
 const { id } = useRoute().params
 
 const { data, error } = await useFetch<Recipe>(`https://dummyjson.com/recipes/${id}`)
+
+if (error.value) {
+	throw createError({
+		statusCode: error.value?.statusCode,
+		statusMessage: error.value?.statusMessage,
+	})
+}
+
+useSeoMeta({
+	title: data.value?.name,
+	description: "Recepies by Recipe App",
+	ogTitle: data.value?.name,
+	ogDescription: "Recepies by Recipe App",
+	ogImage: data.value?.image,
+	ogUrl: `https://localhost:3000/recipes/${data.value?.id}`,
+	twitterTitle: data.value?.name,
+	twitterDescription:"Recepies by Recipe App",
+	twitterImage:  data.value?.image,
+	twitterCard: 'summary'
+})
 </script>
 
 <template>
-	<div class="flex flex-col h-[100vh] max-w-screen-lg container py-20">
+	<div class="flex flex-col h-[100vh] max-w-screen-lg container mb-20 py-20">
 		<!-- Header -->
 		<div class="flex flex-col mb-6">
 			<h2 class="text-5xl mb-4 font-semibold">{{ data?.name }}</h2>
@@ -55,7 +75,7 @@ const { data, error } = await useFetch<Recipe>(`https://dummyjson.com/recipes/${
 			<ul>
 				<li v-for="(instruction, index) in data?.instructions" :key="instruction" class="flex flex-col gap-2">
 					<span class="flex items-center justify-center w-5 h-5 p-2 bg-dodgeroll-gold text-white text-sm">
-						{{ index + 1  }}
+						{{ index + 1 }}
 					</span>
 					<span class="flex-1">{{ instruction }}</span>
 				</li>
@@ -64,6 +84,4 @@ const { data, error } = await useFetch<Recipe>(`https://dummyjson.com/recipes/${
 	</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
